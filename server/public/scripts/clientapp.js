@@ -1,36 +1,48 @@
-var myApp =  angular.module("myApp",["ngRoute"]);
+var myApp =  angular.module("myApp", []);
 
-myApp.config(["$routeProvider", function($routeProvider){
-  $routeProvider.
-    when("/storm",{
-      templateUrl: "/views/partials/stormInfo.html",
-      controller: "stormController"
-    }).
-    when("/magneto",{
-      templateUrl: "/views/partials/magnetoInfo.html",
-      controller: "magnetoController"
-    }).
-    when("/pyro",{
-      templateUrl: "/views/partials/pyroInfo.html",
-      controller: "pyroController"
-    }).
-    otherwise({
-      redirectTo: "/storm"
-    });
+
+
+myApp.controller("mainController", ["$scope", function($scope){
+  console.log('controller loaded');
+  $scope.popup_newProject = true;
+
+  $scope.hidePopup = function(){
+    console.log('clicked hide popup');
+    $scope.popup_newProject = true;
+    console.log($scope.popup_newProject)
+  }
+  $scope.addNewProject = function(){
+    console.log('clicked new project');
+    $scope.popup_newProject = false;
+    console.log($scope.popup_newProject)
+  }
+
 }]);
 
-myApp.controller("stormController", ["$scope","$location", function($scope,$location){
-  $scope.imgSrc = "/imgs/storm.jpeg";
-  $scope.go = function ( path ) {
-  $location.path( path );
-};
-  console.log("thunder n stuff");
-}]);
-myApp.controller("magnetoController", ["$scope", function($scope){
-  $scope.imgSrc = "/imgs/magneto.jpeg";
-  console.log("magnetz");
-}]);
-myApp.controller("pyroController", ["$scope", function($scope){
-  $scope.imgSrc = "/imgs/pyro.jpeg";
-  console.log("pyro is here");
-}]);
+
+
+
+
+
+
+
+
+//
+// myApp.config(["$routeProvider", function($routeProvider){
+//   $routeProvider.
+//     when("/storm",{
+//       templateUrl: "/views/partials/stormInfo.html",
+//       controller: "stormController"
+//     }).
+//     when("/magneto",{
+//       templateUrl: "/views/partials/magnetoInfo.html",
+//       controller: "magnetoController"
+//     }).
+//     when("/pyro",{
+//       templateUrl: "/views/partials/pyroInfo.html",
+//       controller: "pyroController"
+//     }).
+//     otherwise({
+//       redirectTo: "/storm"
+//     });
+// }]);

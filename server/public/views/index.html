@@ -6,19 +6,20 @@
     <title>Angular</title>
 
     <script type="text/javascript" src="/vendors/angular.min.js"></script>
-    <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
     <script type="text/javascript" src="/scripts/clientapp.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="./vendors/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
 </head>
 
-<body>
+<body ng-controller="mainController">
 
-    <div ng-include="'views/partials/header.html'"></div>
-    <!-- <main ng-view></main> -->
-    <div ng-include="'views/partials/characterSelect.html'"></div>
+    <div ng-hide="popup_newProject" ng-include="'views/partials/popUp_newProject.html'"></div>
+    <div ng-include="'views/partials/topNav.html'"></div>
 
-    <div ng-include="'views/partials/footer.html'"></div>
+    <div ng-include="'views/partials/sideNav.html'"></div>
+
+    <div ng-include="'views/partials/mainDisplay.html'"></div>
+
 
 </body>
 

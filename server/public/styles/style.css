@@ -1,80 +1,334 @@
-#header_container{
-  width: 100%;
-  height: 50px;
-  background-color:#C0D461;
-}
-
-#footer_container{
-  width: 100%;
-  height: 100px;
-  background-color:#C0D461;
-
-}
-
-#character_container{
-  width: 800px;
-  height: 600px;
-  background-color:#AEF78E;
-  margin: auto;
-  position: relative;
-}
-
-.characterSelect{
-  width: 600px;
-  height: 180px;
-  background-color: #66A182;
-  position: absolute;
-  bottom: 0;
-  padding-left: 100px;
-  padding-right: 100px;
-
-}
-.sickpic{
-  width: 350px;
-  height: 400px;
-}
-
-.characterImage{
-  width: 350px;
-  height: 400px;
-  background-color: none;
-  display: inline-block;
-  margin-left:20px;
-  margin-top: 10px;
-}
-.characterBio{
-  width: 400px;
-  height: 400px;
-  background-color: none;
-    display: inline-block;
-      margin-top: 10px;
-}
-.characterSelect_container{
-  height: 150px;
-  width: 150px;
-  display: inline-block;
-  background-color: #2E4057;
-  margin-left: 22px;
-  margin-right: 22px;
-  margin-top: 12px;
-}
-
-.charName{
-  color: white;
-  width: 150px;
-  height:40px;
-  text-decoration: none;
-  font-family: helvetica;
-  font-size: 20px;
-
-  display: block;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-
-
-}
-body{
-  margin: 0;
+* {
   padding: 0;
+  margin: 0;
+  font-family: Helvetica;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------ top navigation bar ------------------------*/
+#top_NavBar{
+  width: 20%;
+  height: 8%;
+  min-height: 50px;
+  background-color: #59666C;
+  z-index: 999;
+  position: absolute;
+}
+
+.top_navCollapse{
+  display: inline-block;
+  float: left;
+  font-size: 20px;
+  margin-top: 15px;
+  margin-left: 10px;
+  color: white;
+  cursor: pointer;
+}
+.top_navSearch{
+  display: inline-block;
+  float: right;
+  font-size: 20px;
+  margin-top: 15px;
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+#top_mainDisplay{
+  width: 80%;
+  height: 8%;
+  left: 20%;
+  min-height: 50px;
+  background-color: #CAB3A0;
+  z-index: 999;
+  position: absolute;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.top_mainTextHeader{
+  font-size: 24px;
+  font-weight: lighter;
+  padding-top: 10px;
+  padding-left: 15px;
+  display: inline-block;
+  color: #59666C;
+  cursor: pointer;
+}
+
+.top_mainIconContainer{
+  /*float: right;*/
+  position: absolute;
+  right: 0;
+  height: 18px;
+  width: 200px;
+  top: 32px;
+  padding-right: 20px;
+    cursor: pointer;
+}
+.top_mainIconTextContainer{
+  /*float: right;*/
+  position: absolute;
+  right: 0;
+  height: 32px;
+    width: 200px;
+  top: 0px;
+  padding-right: 20px;
+    cursor: pointer;
+}
+
+.top_mainIcon{
+  float: right;
+  font-size: 22px;
+  display: inline-block;
+  padding-left: 15px;
+  padding-top: 8px;
+  padding-right: 22px;
+  color: #59666C;
+}
+.top_more{
+  /*padding-top: 15px;*/
+  padding-top: 10px;
+}
+.top_mainIconText{
+  font-weight: lighter;
+  color: #59666C;
+  float:right;
+  font-size: 10px;
+  padding-right: 21px;
+  padding-left: 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------ side navigation bar ------------------------*/
+#sideNavBar{
+  width: 20%;
+  float: left;
+  height: 92%;
+  top: 50px;
+  position: absolute;
+  background-color: white;
+  z-index: 50;
+  box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.5);
+
+}
+
+#side_userName{
+  margin-left: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+
+#side_userName:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.side_userIcon{
+  display: inline-block;
+}
+.side_userNameText{
+  display: inline-block;
+  font-size: 23px;
+  font-weight: lighter;
+  position: absolute;
+  top: 27px;
+  /*left: 35px;*/
+  margin-left: 10px;
+}
+
+.side_filterContainer{
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.side_filterContainer:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.side_filterIcon{
+  display: inline-block;
+  font-size: 18px;
+}
+.side_filterText{
+  font-size: 18px;
+  font-weight: lighter;
+  display: inline-block;
+}
+
+.side_indicator{
+  float: right;
+  display: inline-block;
+  padding-right: 15px;
+  font-size: 14px;
+  padding-top: 5px;
+  font-weight: lighter;
+  /*color: tomato;*/
+}
+
+.side_seperatorLine{
+  width: 85%;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 1px;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.side_addProject{
+  position: absolute;
+  bottom: 0;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.side_addProject:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------ main display window ------------------------*/
+#mainDisplay{
+  width:  80%;
+  height: 92%;
+  top: 50px;
+  left:20%;
+  position: absolute;
+  overflow: hidden;
+}
+
+
+.displayImg{
+  max-width:100%;
+  /*max-height: 100%;*/
+  /*transform: translateY(-200px);*/
+}
+
+.main_addTaskForm{
+  width: 98%;
+  height: 50px;
+  background-color: #59666C;
+  z-index: 999;
+  position: absolute;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-top: 30px;
+  padding-right: 50px;
+}
+
+.main_addTaskInput{
+  width: 80%;
+  height: 50px;
+  font-size: 25px;
+  font-weight: lighter;
+  margin-left: 50px;
+  background-color: #59666C;
+  border: none;
+  color: white;
+}
+
+.main_addTaskInput:focus{
+  border: none;
+  outline: none;
+}
+
+.main_addTaskOptions{
+  float: right;
+  font-size: 30px;
+  color: white;
+  font-weight: lighter;
+  margin-top: 10px;
+  margin-right: 10px;
+
+
+}
+
+.main_addTaskOptions:hover{
+  cursor: pointer;
+  font-size: 33px;
+  margin-top: 8px;
+}
+
+
+.main_inputIcon{
+  font-size: 40px;
+  font-weight: lighter;
+  position:absolute;
+  left: 15px;
+  top: -7px;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------- popup menus -----------------------------*/
+.popup_background{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-color: white;
+  z-index: 8999;
+}
+
+.popup_windowContainer{
+    -webkit-transform: translate(-50%, 0);
+  height: 400px;
+  width: 700px;
+  left: 50%;
+  top: 50px;
+  background-color: white;
+  border-radius: 15px;
+  border: 10px solid #59666C;
+  z-index: 9000;
+  position: absolute;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.5)
 }
