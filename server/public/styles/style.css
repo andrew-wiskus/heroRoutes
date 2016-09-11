@@ -130,7 +130,7 @@
   background-color: white;
   z-index: 50;
   box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.5);
-
+  overflow-y: scroll;
 }
 
 #side_userName{
@@ -208,6 +208,14 @@
 
 .side_addProject:hover{
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.projectList{
+  /*background-color:red;*/
+  height: 60%;
+  overflow-y: scroll;
+  max-height: 60%
+  margin-bottom: 30px;
 }
 
 
@@ -320,7 +328,7 @@
 }
 
 .popup_windowContainer{
-    -webkit-transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
   height: 400px;
   width: 700px;
   left: 50%;
@@ -330,5 +338,5 @@
   border: 10px solid #59666C;
   z-index: 9000;
   position: absolute;
-  box-shadow: 5px 5px 5px rgba(0,0,0,0.5)
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
 }

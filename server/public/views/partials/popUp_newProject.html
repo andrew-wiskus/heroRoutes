@@ -1,5 +1,14 @@
 <div ng-hide="popup_newProject">
 <div ng-click="hidePopup()" class="popup_background"></div>
-<div class="popup_windowContainer"></div>
+<div class="popup_windowContainer">
+
+  <form ng-submit="addProject(newProject)">
+
+    project title:<input ng-model="newProject.title" type="text" class="projectTitle" />
+    <p>todo: pick an icon</p>
+    <p>todo: pick a bg image</p>
+    <!-- <p>todo: add a label</p> -->
+  </form>
+</div>
 
 </div>

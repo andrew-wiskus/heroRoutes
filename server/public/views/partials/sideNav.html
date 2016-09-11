@@ -1,26 +1,33 @@
 <div id="sideNavBar">
-  <div id="side_userName">
-    <img class="side_userIcon" src="../imgs/userIcon.png" height=40 width=40/>
-    <p class="side_userNameText"><span>Andrew Wiskus</span></p>
-  </div>
-  <div class="side_filterContainer">
-    <span class="side_filterIcon glyphicon glyphicon-envelope"></span>
-    <p class="side_filterText">Inbox</p>
-    <p class="side_indicator">3 new</p>
-  </div>
+    <div id="side_userName">
+        <img class="side_userIcon" src="../imgs/userIcon.png" height=40 width=40/>
+        <p class="side_userNameText"><span>Andrew Wiskus</span></p>
+    </div>
+    <div ng-click="changeDisplay('filter_inbox')" class="side_filterContainer">
+        <span class="side_filterIcon glyphicon glyphicon-envelope"></span>
+        <p class="side_filterText">Inbox</p>
+        <p class="side_indicator">3 new</p>
+    </div>
 
-  <div class="side_filterContainer">
-    <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
-    <p class="side_filterText">Todays Tasks</p>
-    <p class="side_indicator">15%</p>
-  </div>
+    <div ng-click="changeDisplay('filter_today')" class="side_filterContainer">
+        <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
+        <p class="side_filterText">Todays Tasks</p>
+        <p class="side_indicator">15%</p>
+    </div>
 
-  <div class="side_seperatorLine"></div>
-
-
-  <div ng-click="addNewProject()" class="side_addProject">
-    <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
-    <p class="side_filterText">New Project</p>
-  </div>
+    <div class="side_seperatorLine"></div>
+    <div class="projectList">
+    <div class="projectFilter" ng-repeat="project in userProjects">
+        <div ng-click="changeDisplay(project.title)" class="side_filterContainer">
+            <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
+            <p class="side_filterText">{{project.title}}</p>
+            <p class="side_indicator">{{project.tasksCompleted.count}}/{{project.allTasks.count}}</p>
+        </div>
+    </div>
+    </div>
+    <div ng-click="addNewProject()" class="side_addProject">
+        <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
+        <p class="side_filterText">New Project</p>
+    </div>
 
 </div>

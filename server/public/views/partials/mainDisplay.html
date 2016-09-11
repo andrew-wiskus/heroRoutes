@@ -1,17 +1,15 @@
 <div id="mainDisplay">
     <div class="main_addTaskForm">
-          <form name="taskSubmit" target="#here" method="post">
+
+          <form ng-submit="test()" name="taskSubmit" target="#here" method="post">
           <span class="main_inputIcon">+</span>
-            <input name="addedTask" class="main_addTaskInput" placeholder="add task todo" type="text"  />
+            <input ng-model="newTask.task_title" name="addedTask" class="main_addTaskInput" placeholder="add task todo" type="text"  />
 
           <span class="main_addTaskOptions glyphicon glyphicon-edit"></span>
           <span class="main_addTaskOptions glyphicon glyphicon-star"></span>
         </form>
+        <!-- {{newTask.task_title}} -->
     </div>
-
-
-
-
 
 
     <img class="displayImg" src="../imgs/bg7.jpg" />
