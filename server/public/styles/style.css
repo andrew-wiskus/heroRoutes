@@ -6,21 +6,63 @@
 
 
 
+.test{
+  width: 100%;
+  height: 220px;
+  background-color: #59666C;
+}
 
 
 
+.is_complete{
+  opacity: 0.5;
+  color: black;
+}
+.hiddenHistory{
+  color: black;
+  display: none;
+}
+.showHistory{
+  position:absolute;
+  right: 1%;
+  font-size: 50px;
+  top: 250px;
+  /*z-index: 100000;*/
+  /*position: absolute;
+  top: 100%;*/
+}
 
+.editContent{
+  position:absolute;
+  right: 1%;
+  font-size: 50px;
+  top: 305px;
+  /*z-index: 100000;*/
+  /*position: absolute;
+  top: 100%;*/
+}
 
+.hideHistory{
+  display: none;
+}
 
+.deleteIcon{
+  width: 30px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 12px;
+  font-size: 20px;
+  color: white;
+}
 
 
 
 
 /* ------------------------ top navigation bar ------------------------*/
 #top_NavBar{
-  width: 20%;
-  height: 8%;
-  min-height: 50px;
+  width: 250px;
+  height: 40px;
+  min-height: 45px;
   background-color: #59666C;
   z-index: 999;
   position: absolute;
@@ -30,7 +72,7 @@
   display: inline-block;
   float: left;
   font-size: 20px;
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 10px;
   color: white;
   cursor: pointer;
@@ -46,12 +88,13 @@
 }
 
 #top_mainDisplay{
-  width: 80%;
-  height: 8%;
-  left: 20%;
-  min-height: 50px;
+  width:100%;
+  padding-left: 250px;
+  height: 40px;
+  /*left: 20%;*/
+  min-height: 45px;
   background-color: #CAB3A0;
-  z-index: 999;
+  z-index: 995;
   position: absolute;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -68,6 +111,7 @@
 
 .top_mainIconContainer{
   /*float: right;*/
+  display: none;
   position: absolute;
   right: 0;
   height: 18px;
@@ -77,6 +121,7 @@
     cursor: pointer;
 }
 .top_mainIconTextContainer{
+  display: none;
   /*float: right;*/
   position: absolute;
   right: 0;
@@ -88,6 +133,7 @@
 }
 
 .top_mainIcon{
+  display: none;
   float: right;
   font-size: 22px;
   display: inline-block;
@@ -97,10 +143,12 @@
   color: #59666C;
 }
 .top_more{
+  display: none;
   /*padding-top: 15px;*/
   padding-top: 10px;
 }
 .top_mainIconText{
+  display: none;
   font-weight: lighter;
   color: #59666C;
   float:right;
@@ -122,10 +170,10 @@
 
 /* ------------------------ side navigation bar ------------------------*/
 #sideNavBar{
-  width: 20%;
+  width: 250px;
   float: left;
   height: 92%;
-  top: 50px;
+  top: 40px;
   position: absolute;
   background-color: white;
   z-index: 50;
@@ -232,16 +280,21 @@
 
 /* ------------------------ main display window ------------------------*/
 #mainDisplay{
-  width:  80%;
+  width:  100%;
   height: 92%;
-  top: 50px;
-  left:20%;
+  top: 40px;
+  padding-left: 250px;
+  /*left:20%;*/
   position: absolute;
   overflow: hidden;
+  /*padding-left: 250px;*/
+  background-color: none;
+  padding-bottom: 200px;
 }
 
 
 .displayImg{
+  position: absolute;
   max-width:100%;
   /*max-height: 100%;*/
   /*transform: translateY(-200px);*/
@@ -249,25 +302,30 @@
 
 .main_addTaskForm{
   width: 98%;
-  height: 50px;
-  background-color: #59666C;
+  height: 200px;
+  /*background-color: #59666C;*/
   z-index: 999;
-  position: absolute;
+  position: relative;
+  /*bottom: 0;*/
   border-radius: 5px;
   margin-left: 10px;
-  margin-top: 30px;
+  /*margin-top: 30px;*/
   padding-right: 50px;
 }
 
 .main_addTaskInput{
-  width: 80%;
+  width: 53.4%;
+  position: absolute;
+  top: 78%;
   height: 50px;
   font-size: 25px;
+  padding-left:15px;
   font-weight: lighter;
   margin-left: 50px;
-  background-color: #59666C;
+  background-color: white;
   border: none;
-  color: white;
+  border-radius: 10px;
+  color: #59666C;
 }
 
 .main_addTaskInput:focus{
@@ -275,7 +333,28 @@
   outline: none;
 }
 
+.main_addTaskHash{
+  width: 6.7%;
+  position: absolute;
+  top: 78%;
+  height: 50px;
+  font-size: 25px;
+  padding-left: 18px;
+  font-weight: lighter;
+  margin-left: 0px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  color: #59666C;
+  right: 34%;
+}
+
+.main_addTaskHash:focus{
+  border: none;
+  outline: none;
+}
 .main_addTaskOptions{
+  display: none;
   float: right;
   font-size: 30px;
   color: white;
@@ -298,13 +377,48 @@
   font-weight: lighter;
   position:absolute;
   left: 15px;
-  top: -7px;
+  top: 75.5%;
   color: white;
 }
 
 
+.tasklistItem{
+  width: 95%;
+  /*pad*/
+  height: 50px;
+  font-size: 20px;
+  font-weight: lighter;
+  padding-top: 3px;
+  border-radius: 10px;
+  background-color: #59666C;
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+.tasklistText{
+  display: inline-block;
+  color: white;
 
+}
+.is_completetext{
+  text-decoration: line-through;
+  color: black;
+}
+.checkbox{
+  display: inline-block;
+  width:30px;
+}
 
+.main_currentListView{
+width: 95%;
+height: 100%;
+padding-bottom: 175px;
+margin: auto;
+/*margin-top: 100px;*/
+margin-top: 15px;
+
+background-color: none;
+overflow-y: scroll;
+}
 
 
 
@@ -322,21 +436,49 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  opacity: 0.5;
+  opacity: 0.25;
   background-color: white;
   z-index: 8999;
 }
 
-.popup_windowContainer{
-  -webkit-transform: translate(-50%, 0);
+.popup_project_navContainer{
+  display: none;
+  /*-webkit-transform: translate(-50%, 0);*/
   height: 400px;
-  width: 700px;
-  left: 50%;
-  top: 50px;
+  width: 200px;
+  left: 50px;
+  bottom: 40px;
+  /*bottom: 0%;*/
+  /*top: 50px;*/
   background-color: white;
-  border-radius: 15px;
-  border: 10px solid #59666C;
+  border-radius: 2px;
+  /*border: 10px solid #59666C;*/
   z-index: 9000;
   position: absolute;
   box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+.projectTitle_label{
+  font-size: 20px;
+  font-weight: Lighter;
+  color: white;
+}
+.projectTitle_input{
+  width: 90%;
+  height: 30px;
+}
+.popup_project_formContainer{
+  /*-webkit-transform: translate(-50%, 0);*/
+  height: 400px;
+  width: 500px;
+  left: 250px;
+  /* bottom: 10px; */
+  padding: 20px;
+  bottom: 19px;
+  /*top: 50px;*/
+  background-color: slategrey;
+  border-radius: 2px;
+  /*border: 10px solid #59666C;*/
+  z-index: 9000;
+  position: absolute;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 }

@@ -9,6 +9,10 @@ var config = {
     storageBucket: "deskboss-beb70.appspot.com",
 };
 
+// var ref = new firebase('https://deskboss-beb70.firebaseio.com');
+var useremail = ref.getAuth().password.email;
+
+
 firebase.initializeApp(config);
 
 
@@ -29,6 +33,7 @@ function signup(email, password) {
   var promise = auth.createUserWithEmailAndPassword(email, password);
   promise.catch(function(e) {
       console.log("SECOND LOG", e.message);
+      console.log('HEY IT WORKS', useremail);
   });
 
 }

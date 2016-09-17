@@ -8,11 +8,11 @@ app.use(bodyParser.json());
 
 
 //routes
-var login = require("./routes/login.js");
-app.use('/login', login);
-
-var signup = require("./routes/signup.js");
-app.use('/signup', signup);
+// var login = require("./routes/login.js");
+// app.use('/login', login);
+//
+var userdata = require("./routes/userdata.js");
+app.use('/userdata', userdata);
 
 
 

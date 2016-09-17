@@ -1,96 +1,273 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ["firebase"]);
+
+    var objectDragged = {}
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        // ev.dataTransfer.setData("text", ev.target.id);
+        ev.dataTransfer.setData("task_id", ev.target.id);
+        console.log(ev.dataTransfer.getData("task_id"));
+    }
+
+    function drop(ev) {
+      console.log('TODO: add boolean to new columns: in_today/in_sprint/in_folder', ev.dataTransfer.getData("task_id"))
+        // ev.preventDefault();
+        // var data = ev.dataTransfer.getData("text");
+        // ev.target.appendChild(document.getElementById(data));
+        // console.log('data');
+    }
 
 
 
-myApp.controller("mainController", ["$scope", "$http", function($scope, $http) {
+myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$firebaseAuth", function($scope, $http, $firebaseObject, $firebaseAuth) {
     console.log('mainController loaded');
 
-    //------------------ check user/login ---------------//
-    $scope.isLoggedIn = false;
-    $scope.userLogin = function(email, password) {
-        var userInfo = {
-            email: email,
-            password: password
-        };
-
-        $http.post('/login', userInfo).then(function() {
+    // var drag = function(ev, task) {
+    // ev.dataTransfer.setData("text", ev.target.id);
+    // console.log(ev)
+    // objectDragged = task
+    // }
+    $scope.test = objectDragged;
 
 
-            console.log('user info sent', userInfo);
+    //------------------ init page ---------------------//
+
+    $scope.userData = {
+        username: 'testuser',
+        email: 'testemail@email.com',
+        taskList: [],
+        projectList: []
+    };
+
+
+    function getTaskData(currentFilter) {
+        var username = 'Wizzy+Dream'
+        var email = 'andrewwiskus@gmail.com'
+        console.log('--------------------------------------------------------------------')
+        console.log('                            TASK LIST     ')
+        console.log('                     ', email)
+
+        $http.get('/userData/task', {
+            params: {
+                email: email
+            }
+        }).then(function(response) {
+
+            $scope.userData.taskList = [];
+            var tempProjectArray = [];
+            $scope.userData.username = "Wizzy+Dream"
+            var organizedIds = [];
+            // var organizedObject = _.indexBy(response.data, 'id');
+            //
+
+
+
+            response.data.forEach(function(task) {
+                if (task.title != 'o58j6ckq') {
+                    console.log('--------------------------------------------------------------------')
+                    console.log('-id     | ', task.id)
+                    console.log('-title  | ', task.title);
+                    console.log('-project| ', task.project_of);
+                    console.log('-email  | ', task.user_email);
+                    $scope.userData.taskList.push(task);
+
+                }
+                if (task.project_of !== null) {
+                    tempProjectArray.push(task.project_of);
+                }
+            });
+            $scope.userData.projectList = _.uniq(tempProjectArray);
+            $scope.userData.email = response.data[0].user_email;
+            // $scope.userData.user_name;
+            console.log('Current User Data: ', $scope.userData);
+            if (currentFilter != 'all'){
+              updateList(currentFilter);
+              $scope.currentListview = currentfilter;
+            } else {
+              // sortByProject
+              $scope.currentListView = 'all';
+              $scope.currentTaskDisplay = sortByProject($scope.userData);
+
+            }
+
+            console.log('HEY!');
+            sortByProject($scope.userData);
+            // console.log(testVar);
+
+          // {1: [1.3], 2: [2.1, 2.4]}
         });
+
     }
-    $scope.userSignup = function(email, password) {
-        var userInfo = {
-            email: email,
-            password: password
-        };
-        console.log('user info sent', userInfo);
-        $http.post('/signup', userInfo).then(function(response) {
-            console.log('hey data', response.data);
-        });
-        // $http({
-        //     method: 'POST',
-        //     url: '/signup',
-        //     data: userInfo
-        // }).then(function successCallback(response) {
-        //     // this callback will be called asynchronously
-        //     // when the response is available
-        //     console.log(response);
-        // }, function errorCallback(response) {
-        //     // called asynchronously if an error occurs
-        //     // or server returns response with an error status.
-        //     console.log(response);
-        // });
+    getTaskData('all');
+    function sortByProject(user){
+      var tempArray = [];
+      user.taskList.forEach(function(task){
+        if (task.project_of == null){
+          tempArray.push(task);
+        }
+      });
+      user.projectList.forEach(function(project){
+        user.taskList.forEach(function(task){
+          if (task.project_of == project){
+            tempArray.push(task);
+          }
+        })
+      });
+
+      // tempArray.forEach(function(task){
+      //   console.log(task.project_of);
+      // })
+      return tempArray;
+
     }
 
-    //-------------------- main display --------------------//
-    $scope.popup_newProject = true;
-    $scope.newTask = {};
-    $scope.currentfilter = "filter_today";
-    $scope.displayTitle = "Todays tasks";
-    $scope.newProject = {};
-    $scope.userProjects = [];
-    $scope.addProject = function(project) {
-        console.log(project.title);
-        $scope.userProjects.push(project);
-        $scope.newProject = {};
-        $scope.popup_newProject = true;
-    }
-    $scope.changeDisplay = function(filter) {
-        $scope.currentfilter = filter;
-        console.log(filter);
-        switch (filter) {
-            case "filter_inbox":
-                $scope.displayTitle = "My inbox";
-                break;
-            case "filter_today":
-                $scope.displayTitle = "Todays tasks";
-                break;
-            default:
-                $scope.displayTitle = filter;
+
+    //------------------- click functions -------------------//
+    $scope.currentListView = 'all'
+    $scope.historyIsShowing = true;
+    $scope.is_complete = 'is_complete'
+    $scope.clickedHistory = function() {
+        var history = $scope.historyIsShowing;
+        $scope.historyIsShowing = !history;
+
+        if (history) {
+            $scope.is_complete = 'hiddenHistory'
+        } else {
+            $scope.is_complete = 'is_complete'
         }
     }
-    $scope.hidePopup = function() {
-        console.log('clicked hide popup');
+
+
+    $scope.showEdits = false;
+    $scope.clickedEdit = function() {
+        var editShowing = $scope.showEdits;
+        $scope.showEdits = !editShowing;
+        // $scope.showEdits = true;
+
+    }
+
+    $scope.clickedDeleteButton = function(task) {
+        console.log('deleteing', task.id);
+        $http.delete('/userdata/task/' + task.id).then(function(response) {
+            // getTaskData($scope.currentListView);
+
+
+        });
+        //TODO: THIS DOESNT FEEL RIGHT.. RACE PROB??
+        getTaskData('all');
+    }
+
+
+    $scope.currentTaskDisplay = [];
+    $scope.currentListView = 'all';
+    $scope.clickedFilter = function(filter) {
+        $scope.currentListView = filter;
+        updateList(filter);
+    }
+
+
+    $scope.currentTaskDisplay = [];
+    var updateList = function(filter) {
+      console.log('-updating list to current filter')
+        if (filter == 'all') {
+            $scope.currentTaskDisplay = sortByProject($scope.userData);
+            $scope.currentListView = 'all';
+
+
+        } else {
+            var tempArray = [];
+            $scope.userData.taskList.forEach(function(task) {
+                // console.log(task);
+                if (task.project_of == filter) {
+                    // console.log(task.project_of);
+                    tempArray.push(task);
+                }
+
+            });;
+
+
+            $scope.currentTaskDisplay = tempArray;
+        }
+    }
+
+
+
+    //------------------ check user/login ---------------//
+    $scope.isLoggedIn = true;
+
+
+    //-------------------- console display -------------------//
+    $scope.newTask = {};
+    $scope.addTask = function(taskObject) {
+
+            //TODO: FIND PROJECT OF
+            //FUTURE: ADD SCRUM POINTS
+            if (taskObject.project_of === undefined) {
+                if ($scope.currentListView == 'all') {
+                    taskObject.project_of = null;
+                } else {
+
+                    taskObject.project_of = $scope.currentListView;
+                }
+            }
+            taskObject.user_email = $scope.userData.email;
+
+            //TODO: POST REQUEST
+            console.log('works?', taskObject)
+            $http.post('/userdata/task', taskObject).then(function(data) {
+                // console.log('task complete, data back?: ', data)
+                getTaskData($scope.currentListView);
+            });
+            $scope.newTask = {};
+            console.log('adding to db:', taskObject);
+        }
+        //-------------------- tasklist display --------------------//
+
+
+    $scope.clickedTaskCheckbox = function(task) {
+        console.log('complted', task);
+        $http.put('/userdata/task/' + task.id, task).then(function() {
+            console.log('put went through');
+            getTaskData($scope.currentListView);
+        });
+    }
+
+
+    $scope.newProject = {};
+    $scope.addProject = function(projectObject) {
+        console.log(projectObject);
+        var object = {
+            project_of: projectObject.title,
+            user_email: $scope.userData.email,
+            task: 'o58j6ckq'
+
+        }
+        console.log('ADDING THIS ', object)
+        $scope.addTask(object);
         $scope.popup_newProject = true;
-        console.log($scope.popup_newProject)
+        $scope.newProject = {};
     }
-    $scope.addNewProject = function() {
-        console.log('clicked new project');
+
+
+
+
+    //--------------------project display-----------------//
+
+    // $scope.currentUser.projectList;
+
+    //--------------------pop up display------------------//
+    $scope.addProject_popUp = function() {
+        console.log('popup pushed')
         $scope.popup_newProject = false;
-        console.log($scope.popup_newProject)
     }
-
-    $scope.test = function() {
-        console.log("TESTING WORKS");
-        $scope.newTask.projectOf = $scope.currentfilter;
-        console.log($scope.newTask);
-        $scope.newTask.task_title = "";
+    $scope.hidePopup = function() {
+        $scope.popup_newProject = true;
     }
-
+    $scope.popup_newProject = true;
 }]);
-
-
 
 
 

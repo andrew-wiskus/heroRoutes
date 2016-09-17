@@ -11,10 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-drag-drop": "^3.0.5",
     "angular-route": "^1.5.8",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "firebase": "^3.3.2",
-    "pg": "^6.1.0"
+    "pg": "^6.1.0",
+    "underscore": "^1.8.3"
   }
 }
