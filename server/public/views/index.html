@@ -25,9 +25,20 @@
 
 <body ng-controller="mainController">
 
+  <div ng-hide="!currentlySprinting" id="sprintFullScreen">
+      <div class="fullscreenSprint">
+          <h1 class="sprint_timer">2:59:52</h1>
+          <button class="sprint_pause">PAUSE</button>
+          <button ng-click="endSprintUnfinished(currentSprintTasks)"class="sprint_end">END WITH UNFINISHED TASKS</button>
+          <div class="currentSprintTasksContainer">
+              <div ng-repeat="task in currentSprintTasks" ng-show="sprintSetup_itemDropped" class="sprintSetup_itemDropped">
+                  <p class="currentlySprintingTextList"><span ng-click="clickedSprintTaskX(task.id)" class="checkbox glyphicon glyphicon-unchecked"></span>{{task.title}}</p>
+              </div>
+          </div>
+      </div>
+  </div>
 
-
-
+  <div ng-hide="currentlySprinting" id="sprintDisplay">
     <div ng-hide="isLoggedIn">
       <h1>LOGIN</h1>
       <form ng-model ='userInput'>
@@ -49,7 +60,7 @@
     <div ng-include="'views/partials/mainDisplay.html'"></div>
     </div>
 
-
+</div>
 </body>
 
 

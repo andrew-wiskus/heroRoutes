@@ -1,37 +1,65 @@
-<div id="mainDisplay">
-  <!-- <div ng-show="filterWithScreen" class="test"> -->
-  <div ondrop="drop(event)" ondragover="allowDrop(event)" class="test">
-    <div class="main_addTaskForm">
+<div ng-hide="currentlySprinting" id="mainDisplay">
+    <!-- <div ng-show="filterWithScreen" class="test"> -->
 
-          <form ng-submit="addTask(newTask)" name="taskSubmit" target="#here" method="post">
-          <span class="main_inputIcon">+</span>
-            <input ng-model="newTask.task" name="addedTask" class="main_addTaskInput" placeholder="add task todo" type="text"  />
+    <div droppable="true" class="test {{sprint_view ? 'yes' : 'no'}}" id="{{drop_id}}">
 
-            <!-- <span class="{{historyIsShowing ? 'showHistory glyphicon glyphicon-eye-open' : 'showHistory glyphicon glyphicon-eye-close'}}"}></span> -->
-            <!-- <input ng-model="newTask.hash" name="taskHash" class="main_addTaskHash" placeholder="#0" type="text"  /> -->
-          <span class="main_addTaskOptions glyphicon glyphicon-edit"></span>
-          <span class="main_addTaskOptions glyphicon glyphicon-star"></span>
-        </form>
-        <!-- {{newTask.task_title}} -->
+        <div ng-hide="!sprint_view">
+            <div ng-show="sprintSetup" class="sprint_setup">drag + drop tasks for your sprint</div>
+
+            <div ng-repeat="task in currentSprintTasks" ng-show="sprintSetup_itemDropped" class="sprintSetup_itemDropped">
+                <p class="instructionText"><span ng-click="clickedSprintTaskX(task.id)" class="checkbox glyphicon glyphicon-unchecked"></span>{{task.title}}</p>
+            </div>
+
+
+
+        </div>
+
+        <div ng-hide="sprint_view" class="main_addTaskForm">
+              <div class='scrumCountForFilter'>
+                <p class='scrumCountFilter'><span class='completedScrumPoints'>{{currrentScumComplete}}</span><span class='totalScrumPoints'>/{{currentFilterScrumCount}} {{currentListView == 'all' ? 'points todo in all tasks' : 'points todo in tasks from ' + currentListView}}</span></p>
+                <!-- <p class='scumDescFilter' ></p> -->
+              </div>
+
+            <form ng-submit="addTask(newTask)" name="taskSubmit" target="#here" method="post">
+                <span class="main_inputIcon">+</span>
+                <input ng-model="newTask.task" name="addedTask" class="main_addTaskInput" placeholder="add task todo #num" type="text" />
+
+                <!-- <span class="{{historyIsShowing ? 'showHistory glyphicon glyphicon-eye-open' : 'showHistory glyphicon glyphicon-eye-close'}}"}></span> -->
+                <!-- <input ng-model="newTask.hash" name="taskHash" class="main_addTaskHash" placeholder="#0" type="text"  /> -->
+                <span class="main_addTaskOptions glyphicon glyphicon-edit"></span>
+                <span class="main_addTaskOptions glyphicon glyphicon-star"></span>
+            </form>
+            <!-- {{newTask.task_title}} -->
+        </div>
+        <!-- <button ng-hide="sprint_view" class="buildSprint">SPRINT!</button> -->
+
+        <div ng-hide="!sprint_view">
+            <button ng-click="startSprint()" ng-show="sprintSetup_itemDropped" ng-hide="sprintSetup" class="sprintButton">START SPRINT</button>
+            <p ng-show="sprintSetup_itemDropped" ng-hide="sprintSetup" class="scrumCount">{{currentScrumCount}}¢</p>
+        </div>
     </div>
-  </div>
 
 
-    <span ng-click="clickedHistory()" class="{{historyIsShowing ? 'showHistory glyphicon glyphicon-eye-open' : 'showHistory glyphicon glyphicon-eye-close'}}"}></span>
+
+    <span ng-click="clickedHistory()" class="{{historyIsShowing ? 'showHistory glyphicon glyphicon-eye-open' : 'showHistory glyphicon glyphicon-eye-close'}}" }></span>
     <span ng-click="clickedEdit()" class="editContent glyphicon glyphicon-edit"></span>
 
     <div class="main_currentListView">
-{{test}}
-        <div id="{{task.id}}" draggable="true" ondragstart="drag(event, {name: 'task.title'})" ng-repeat="task in currentTaskDisplay" class="tasklistItem {{!task.is_complete ? 'na' : is_complete}}">
-          <span ng-click="clickedTaskCheckbox(task)" class="checkbox glyphicon glyphicon-unchecked"></span>
-          <p class="tasklistText  {{!task.is_complete ? 'na' : 'is_completetext'}}">{{task.title}}</p>
-          <span ng-show="showEdits" ng-click="clickedDeleteButton(task)" class="deleteIcon glyphicon glyphicon-remove-circle"></span>
+        <!-- {{test}} -->
+        <div id="{{task.id}}" draggable="true" ng-repeat="task in currentTaskDisplay" class="tasklistItem {{!task.is_complete ? 'na' : is_complete}}" style="background-color:{{task.bgColor}}">
+            <span ng-click="clickedTaskCheckbox(task)" class="checkbox glyphicon glyphicon-unchecked"></span>
+            <p class="tasklistText  {{!task.is_complete ? 'na' : 'is_completetext'}}">{{task.title}}</p>
+            <span class="taskScrum">{{'#' + task.scrum}}</span>
+            <span ng-show="showEdits" ng-click="clickedDeleteButton(task)" class="deleteIcon glyphicon glyphicon-remove-circle"></span>
         </div>
 
     </div>
 
-        <!-- <img class="displayImg" src="../imgs/bg7.jpg" /> -->
+
+    <!-- <img class="displayImg" src="../imgs/bg7.jpg" /> -->
 </div>
+
+
 
 
 

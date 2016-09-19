@@ -68,7 +68,7 @@ router.get('/task/', function(req, res, params) {
                 // console.log('result: ', result.rows);
                 tasklist = result.rows
                 console.log('GET REQ: grabbing task list from db')
-                res.send(tasklist)
+                res.send(tasklist.reverse())
             })
 
 
@@ -89,8 +89,8 @@ router.post('/task', function(req, res, params) {
             res.sendStatus(500);
         }
 
-        client.query('INSERT INTO tasks (title, project_of, user_email) '+
-            'VALUES ($1, $2, $3)', [task.task, task.project_of, task.user_email],
+        client.query('INSERT INTO tasks (title, project_of, user_email, scrum) '+
+            'VALUES ($1, $2, $3, $4)', [task.task, task.project_of, task.user_email, task.scrum],
             function(err, result) {
                 done();
 

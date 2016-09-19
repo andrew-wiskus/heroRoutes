@@ -14,10 +14,14 @@
         <p class="side_filterText">My Tasks</p>
         <p class="side_indicator"></p>
     </div>
+    <div ng-click="clickedFilter('sprint')" class="side_filterContainer">
+    <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
+    <p class="side_filterText">Sprint</p>
+    </div>
 
     <div class="side_seperatorLine"></div>
     <div class="projectList">
-    <div class="projectFilter" ng-repeat="project in userData.projectList">
+    <div class="projectFilter" droppable="true" id="{{'drop_' + project}}" ng-repeat="project in userData.projectList">
         <div ng-click="clickedFilter(project)" class="side_filterContainer">
             <span class="side_filterIcon glyphicon glyphicon-paperclip"></span>
             <p class="side_filterText">{{project}}</p>

@@ -2,6 +2,11 @@
   padding: 0;
   margin: 0;
   font-family: Helvetica;
+
+}
+
+body{
+      background-image: url(../imgs/bg7.jpg);
 }
 
 
@@ -9,14 +14,113 @@
 .test{
   width: 100%;
   height: 220px;
-  background-color: #59666C;
+  /*background-color: #59666C;*/
+  /*background-color: rgba(0,0,0,0.3);*/
+  padding-top: 20px;
+  overflow-y: scroll;
+
+  image-resolution: snap;
 }
 
+.totalScrumPoints{
+  font-size: 18px;
+}
+.completedScrumPoints{
 
+}
+.test2{
+
+    width: 100%;
+    height: 157%;
+    background-color: white;
+    padding-top: 20px;
+    overflow-y: scroll;
+
+}
+
+.sprint_timer{
+  font-size: 270px;
+  font-weight: lighter;
+  margin-left: 100px;
+
+}
+.currentlySprintingTextList{
+  width: 100%;
+  padding-left: 100px;
+  font-size: 25px;
+  /*background-color: blue;*/
+
+}
+.sprint_pause{
+  margin-left: 100px;
+  width: 100px;
+  height: 50px;
+
+}
+.sprint_end{
+  width:300px;
+  height: 50px;
+}
+.fullscreenSprint{
+  background-color: white;
+  z-index: 999999999999;
+  height: 100%;
+  width: 100%;
+}
+#sprintFullScreen{
+  background-color: white;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+}
+
+.currentSprintTasksContainer{
+  height: 46%;
+  width: 100%;
+  background-color: white;
+  overflow-y: scroll;
+}
+.sprintButton{
+  position: absolute;;
+  top: 150px;
+  left: 325px;
+  width: 150px;
+  height:30px;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background-color: white;
+  color: #59666C;
+
+  /*float: right;*/
+
+}
+.buildSprint{
+  position: absolute;;
+  top: 155.5px;
+  font-size: 20px;
+  left: 67%;
+  width: 150px;
+  height:50px;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  background-color: white;
+}
+.scrumCount{
+  font-size: 75px;
+  width: 150px;
+  text-align: center;
+  font-weight: 300;
+  position: absolute;
+  left: 325px;
+  top: 50px;
+  color: white
+}
 
 .is_complete{
-  opacity: 0.5;
-  color: black;
+  opacity: 0.7;
+  /*color: black;*/
 }
 .hiddenHistory{
   color: black;
@@ -24,28 +128,50 @@
 }
 .showHistory{
   position:absolute;
-  right: 1%;
-  font-size: 50px;
-  top: 250px;
+  left: 250px;
+  font-size: 30px;
+  /*padding-top: 20px;*/
+  width: 72px;
+  text-align: center;
+  padding-top: 15px;
+  height: 60px;
+  top: 235px;
+  background-color: rgba(0,0,0,0.3);
+  color: white;
   /*z-index: 100000;*/
   /*position: absolute;
   top: 100%;*/
 }
 
 .editContent{
+    background-color: rgba(0,0,0,0.3);
+    color: white;
   position:absolute;
-  right: 1%;
-  font-size: 50px;
-  top: 305px;
+  left: 250px;
+  font-size: 30px;
+  width: 72px;
+  text-align: center;
+  padding-top: 15px;
+  height: 60px;
+  top: 295px;
   /*z-index: 100000;*/
   /*position: absolute;
   top: 100%;*/
 }
 
+
 .hideHistory{
   display: none;
 }
 
+.sprint_setup{
+  font-size: 30px;
+  text-align: center;
+
+  color: white;
+  padding-top: 100px;
+  padding-right: 90px;
+}
 .deleteIcon{
   width: 30px;
   float: right;
@@ -53,6 +179,24 @@
   margin-top: 12px;
   font-size: 20px;
   color: white;
+}
+.instructionText{
+      float: right;
+      width: 750px;
+      background-color: rgba(0,0,0,0.5);
+      wi: left;
+      color: white;
+      font-size: 20px;
+      padding-left: 40px;
+      padding-bottom: 5px;
+      padding-top: 0;
+      margin: 0;
+      margin-bottom: 5px;
+      overflow-wrap: normal;
+}
+
+.yes{
+  background-color: rgba(0,0,0,0.3);
 }
 
 
@@ -103,7 +247,7 @@
   font-size: 24px;
   font-weight: lighter;
   padding-top: 10px;
-  padding-left: 15px;
+  padding-left: 30px;
   display: inline-block;
   color: #59666C;
   cursor: pointer;
@@ -179,6 +323,7 @@
   z-index: 50;
   box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.5);
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #side_userName{
@@ -313,10 +458,58 @@
   padding-right: 50px;
 }
 
-.main_addTaskInput{
-  width: 53.4%;
+.scrumCountForFilter{
   position: absolute;
-  top: 78%;
+  /*padding-top: 20px;*/
+
+
+  height: 100px;
+  width: 500px;
+  /*background-color: white;*/
+}
+.taskScrum{
+  color: white;
+  opacity: 0.5;
+  padding-left: 10px;
+  font-size: 14px;
+}
+.scrumCountFilter{
+  color: white;
+  font-size: 60px;
+  font-weight: lighter;
+  /*text-align: center;*/
+  display: inline-block;
+  width: 505px;
+  margin-bottom: 0;
+  margin-left: 8px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 40px;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.scumDescFilter{
+  color: white;
+  /*float: left;*/
+  /*width: 300px;*/
+  display: inline-block;
+  font-size: 18px;
+  font-weight: lighter;
+  padding-left: 30px;
+  /*text-align: center;*/
+  /*margin-left: 20px !important;*/
+}
+
+
+.main_addTaskInput{
+
+  margin-top: 137px;
+
+  margin-right: 50px;
+
+  width: 93.4%;
+
+
   height: 50px;
   font-size: 25px;
   padding-left:15px;
@@ -377,19 +570,21 @@
   font-weight: lighter;
   position:absolute;
   left: 15px;
-  top: 75.5%;
+  top: 65.5%;
   color: white;
 }
 
 
 .tasklistItem{
-  width: 95%;
+  width: 100%;
   /*pad*/
+  /*margin-left: 72.5px;*/
+  margin-right: 30px;
   height: 50px;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: lighter;
-  padding-top: 3px;
-  border-radius: 10px;
+  padding-top: 6px;
+  border-radius: 3px;
   background-color: #59666C;
   margin-bottom: 5px;
   padding-left: 10px;
@@ -401,22 +596,27 @@
 }
 .is_completetext{
   text-decoration: line-through;
-  color: black;
+  color: white;
+  opacity: 0.8;
 }
 .checkbox{
   display: inline-block;
   width:30px;
+  text-align: center;
 }
 
 .main_currentListView{
-width: 95%;
+width: 885px;
+margin-right: 50px;
+margin-left: 72.5px;
 height: 100%;
 padding-bottom: 175px;
 margin: auto;
 /*margin-top: 100px;*/
-margin-top: 15px;
+/*margin-top: 15px;*/
 
-background-color: none;
+background-color: rgba(0,0,0,0.3);
+/*background-color: none;*/
 overflow-y: scroll;
 }
 
