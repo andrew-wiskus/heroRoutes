@@ -28,12 +28,13 @@
   <div ng-hide="!currentlySprinting" id="sprintFullScreen">
       <div class="fullscreenSprint">
           <h1 class="sprint_timer">2:59:52</h1>
-          <button class="sprint_pause">PAUSE</button>
-          <button ng-click="endSprintUnfinished(currentSprintTasks)"class="sprint_end">END WITH UNFINISHED TASKS</button>
           <div class="currentSprintTasksContainer">
               <div ng-repeat="task in currentSprintTasks" ng-show="sprintSetup_itemDropped" class="sprintSetup_itemDropped">
                   <p class="currentlySprintingTextList"><span ng-click="clickedSprintTaskX(task.id)" class="checkbox glyphicon glyphicon-unchecked"></span>{{task.title}}</p>
               </div>
+          <button class="sprint_pause">PAUSE</button>
+          <button ng-click="endSprintUnfinished(currentSprintTasks)"class="sprint_end">END WITH UNFINISHED TASKS</button>
+
           </div>
       </div>
   </div>

@@ -89,8 +89,8 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
         });
 
         var tempCount = 0;
-        $scope.currentSprintTasks.forEach(function(task){
-          tempCount += task.scrum
+        $scope.currentSprintTasks.forEach(function(task) {
+            tempCount += task.scrum
         });
         $scope.currentScrumCount = tempCount
 
@@ -118,8 +118,8 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
             });
 
             var tempCount = 0;
-            $scope.currentSprintTasks.forEach(function(task){
-              tempCount += task.scrum
+            $scope.currentSprintTasks.forEach(function(task) {
+                tempCount += task.scrum
             });
             $scope.currentScrumCount = tempCount
         });
@@ -134,8 +134,8 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
         console.log($scope.currentSprintTasks);
 
         var tempCount = 0;
-        $scope.currentSprintTasks.forEach(function(task){
-          tempCount += task.scrum
+        $scope.currentSprintTasks.forEach(function(task) {
+            tempCount += task.scrum
         });
         $scope.currentScrumCount = tempCount
 
@@ -187,9 +187,9 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
             e.stopPropagation();
             var dataText = e.dataTransfer.getData('task_id');
 
-              this.style.background = 'none';
-              this.style.opacity = '1.0';
-                // console.log('DROPPED:', dataText);
+            this.style.background = 'none';
+            this.style.opacity = '1.0';
+            // console.log('DROPPED:', dataText);
 
             if (this.getAttribute('id') == 'drop_sprint') {
                 $scope.$apply(function() {
@@ -199,8 +199,8 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
                     $scope.currentTaskDisplay = sprintDisplayTasks($scope.userData);
 
                     var tempCount = 0;
-                    $scope.currentSprintTasks.forEach(function(task){
-                      tempCount += task.scrum
+                    $scope.currentSprintTasks.forEach(function(task) {
+                        tempCount += task.scrum
                     });
                     $scope.currentScrumCount = tempCount
                 });
@@ -297,9 +297,29 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
                 }
             });
             $scope.userData.projectList = _.uniq(tempProjectArray);
+
             $scope.userData.email = response.data[0].user_email;
             // $scope.userData.user_name;
-            console.log('Current User Data: ', $scope.userData);
+
+
+
+            $scope.userData.taskList.forEach(function(task) {
+                console.log('Current User Data: ', $scope.userData);
+                var counter = 50
+                var counter2 = 50;
+                var counter3 = 50;
+                $scope.userData.projectList.forEach(function(project) {
+                    if (task.project_of == project) {
+                        task.bgColor = 'rgb(' + counter + ',' + counter2 + ',' + counter3 + ')'
+                    }
+                    counter += 10;
+                    counter2 += 20;
+                    counter3 += 20;
+                });
+
+
+            });
+
             if (currentFilter != 'all') {
                 updateList(currentFilter);
                 $scope.currentListview = currentfilter;
@@ -415,159 +435,152 @@ myApp.controller("mainController", ["$scope", "$http", "$firebaseObject", "$fire
             var tempCount = 0;
             var tempCompletedCount = 0;
             $scope.currentTaskDisplay.forEach(function(task){
-              tempCount += task.scrum
-              console.log(task.project_of);
-              var counter = 0
-              $scope.userData.projectList.forEach(function(project){
-                if (task.project_of == project){
-                  task.bgColor = 'rgb('+counter+','+counter+','+counter+')'
-                }
-                counter += 20;
-              }) ;
-              if (task.is_complete){
-                tempCompletedCount += task.scrum;
+              tempCount += task.scrum;
+              if (task.is_complete) {
+                  tempCompletedCount += task.scrum;
               }
-            });
 
 
-            $scope.currentFilterScrumCount = tempCount;
-            $scope.currrentScumComplete = tempCount - tempCompletedCount;
-
-
-        } else if (filter == 'sprint') {
-            $scope.drop_id = 'drop_sprint';
-
-            if (sprintDisplayTasks($scope.userData).length == $scope.userData.taskList.length) {
-                console.log('nothing in currentSprintTasks');
-                // $scope.currentTaskDisplay = sprintDisplayTasks($scope.userData)
-                $scope.sprintSetup = true;
-                $scope.currentTaskDisplay = $scope.userData.taskList;
-            } else {
-                console.log('items are in currentSprintTasks');
-                $scope.currentTaskDisplay = sprintDisplayTasks($scope.userData)
-                $scope.sprintSetup = false;
-                $scope.sprintSetup_itemDropped = true;
-
-                var tempCount = 0;
-                $scope.currentSprintTasks.forEach(function(task){
-                  tempCount += task.scrum
-                });
-                $scope.currentScrumCount = tempCount
-
-            }
-
-        } else {
-            $scope.drop_id = "drop_" + filter
-            var tempArray = [];
-            $scope.userData.taskList.forEach(function(task) {
-                // console.log(task);
-                if (task.project_of == filter) {
-                    // console.log(task.project_of);
-                    tempArray.push(task);
-                }
-
-            });;
-
-            $scope.currentTaskDisplay = tempArray;
-            var tempCount = 0;
-            var tempCompletedCount = 0;
-            $scope.currentTaskDisplay.forEach(function(task){
-              tempCount += task.scrum
-
-              if (task.is_complete){
-                tempCompletedCount += task.scrum;
-              }
-            });
-            $scope.currentFilterScrumCount = tempCount;
-            $scope.currrentScumComplete = tempCount - tempCompletedCount;
-        }
-    }
+            })
 
 
 
-    //------------------ check user/login ---------------//
-    $scope.isLoggedIn = true;
+    $scope.currentFilterScrumCount = tempCount;
+    $scope.currrentScumComplete = tempCount - tempCompletedCount;
 
 
-    //-------------------- console display -------------------//
-    $scope.newTask = {};
-    $scope.addTask = function(taskObject) {
+} else if (filter == 'sprint') {
+    $scope.drop_id = 'drop_sprint';
 
-            //TODO: FIND PROJECT OF
-            //FUTURE: ADD SCRUM POINTS
-            if (taskObject.project_of === undefined) {
-                if ($scope.currentListView == 'all') {
-                    taskObject.project_of = null;
-                } else {
+    if (sprintDisplayTasks($scope.userData).length == $scope.userData.taskList.length) {
+        console.log('nothing in currentSprintTasks');
+        // $scope.currentTaskDisplay = sprintDisplayTasks($scope.userData)
+        $scope.sprintSetup = true;
+        $scope.currentTaskDisplay = $scope.userData.taskList;
+    } else {
+        console.log('items are in currentSprintTasks');
+        $scope.currentTaskDisplay = sprintDisplayTasks($scope.userData)
+        $scope.sprintSetup = false;
+        $scope.sprintSetup_itemDropped = true;
 
-                    taskObject.project_of = $scope.currentListView;
-                }
-            }
-            taskObject.user_email = $scope.userData.email;
-            console.log('1. ADDING TASK OBJECT TO DB');
-
-            //---------checks for #x > adds to scrum
-            var fullLength = taskObject.task.length;
-            var stringEnd = taskObject.task[fullLength - 2] + taskObject.task[fullLength - 1];
-
-            if (stringEnd[0] == '#') {
-                taskObject.task = taskObject.task.substring(0, fullLength - 2);
-                taskObject.scrum = stringEnd[1];
-            } else {
-                taskObject.scrum = 0;
-            };
-
-            console.log('taskObject:', taskObject);
-            $http.post('/userdata/task', taskObject).then(function(data) {
-                // console.log('task complete, data back?: ', data)
-                getTaskData($scope.currentListView);
-            });
-            $scope.newTask = {};
-
-        }
-        //-------------------- tasklist display --------------------//
-
-
-    $scope.clickedTaskCheckbox = function(task) {
-        console.log('complted', task);
-        $http.put('/userdata/task/' + task.id, task).then(function() {
-            console.log('put went through');
-            getTaskData($scope.currentListView);
+        var tempCount = 0;
+        $scope.currentSprintTasks.forEach(function(task) {
+            tempCount += task.scrum
         });
+        $scope.currentScrumCount = tempCount
+
     }
 
-
-    $scope.newProject = {};
-    $scope.addProject = function(projectObject) {
-        console.log(projectObject);
-        var object = {
-            project_of: projectObject.title,
-            user_email: $scope.userData.email,
-            task: 'o58j6ckq'
-
+} else {
+    $scope.drop_id = "drop_" + filter
+    var tempArray = [];
+    $scope.userData.taskList.forEach(function(task) {
+        // console.log(task);
+        if (task.project_of == filter) {
+            // console.log(task.project_of);
+            tempArray.push(task);
         }
-        console.log('ADDING THIS ', object)
-        $scope.addTask(object);
-        $scope.popup_newProject = true;
-        $scope.newProject = {};
+
+    });;
+
+    $scope.currentTaskDisplay = tempArray;
+    var tempCount = 0;
+    var tempCompletedCount = 0;
+    $scope.currentTaskDisplay.forEach(function(task) {
+        tempCount += task.scrum
+
+        if (task.is_complete) {
+            tempCompletedCount += task.scrum;
+        }
+    });
+    $scope.currentFilterScrumCount = tempCount;
+    $scope.currrentScumComplete = tempCount - tempCompletedCount;
+}
+}
+
+
+
+//------------------ check user/login ---------------//
+$scope.isLoggedIn = true;
+
+
+//-------------------- console display -------------------//
+$scope.newTask = {}; $scope.addTask = function(taskObject) {
+
+//TODO: FIND PROJECT OF
+//FUTURE: ADD SCRUM POINTS
+if (taskObject.project_of === undefined) {
+    if ($scope.currentListView == 'all') {
+        taskObject.project_of = null;
+    } else {
+
+        taskObject.project_of = $scope.currentListView;
     }
+}
+taskObject.user_email = $scope.userData.email;
+console.log('1. ADDING TASK OBJECT TO DB');
+
+//---------checks for #x > adds to scrum
+var fullLength = taskObject.task.length;
+var stringEnd = taskObject.task[fullLength - 2] + taskObject.task[fullLength - 1];
+
+if (stringEnd[0] == '#') {
+    taskObject.task = taskObject.task.substring(0, fullLength - 2);
+    taskObject.scrum = stringEnd[1];
+} else {
+    taskObject.scrum = 0;
+};
+
+console.log('taskObject:', taskObject);
+$http.post('/userdata/task', taskObject).then(function(data) {
+    // console.log('task complete, data back?: ', data)
+    getTaskData($scope.currentListView);
+});
+$scope.newTask = {};
+
+}
+//-------------------- tasklist display --------------------//
+
+
+$scope.clickedTaskCheckbox = function(task) {
+console.log('complted', task);
+$http.put('/userdata/task/' + task.id, task).then(function() {
+    console.log('put went through');
+    getTaskData($scope.currentListView);
+});
+}
+
+
+$scope.newProject = {}; $scope.addProject = function(projectObject) {
+console.log(projectObject);
+var object = {
+    project_of: projectObject.title,
+    user_email: $scope.userData.email,
+    task: 'o58j6ckq'
+
+}
+console.log('ADDING THIS ', object)
+$scope.addTask(object);
+$scope.popup_newProject = true;
+$scope.newProject = {};
+}
 
 
 
 
-    //--------------------project display-----------------//
+//--------------------project display-----------------//
 
-    // $scope.currentUser.projectList;
+// $scope.currentUser.projectList;
 
-    //--------------------pop up display------------------//
-    $scope.addProject_popUp = function() {
-        console.log('popup pushed')
-        $scope.popup_newProject = false;
-    }
-    $scope.hidePopup = function() {
-        $scope.popup_newProject = true;
-    }
-    $scope.popup_newProject = true;
+//--------------------pop up display------------------//
+$scope.addProject_popUp = function() {
+console.log('popup pushed')
+$scope.popup_newProject = false;
+}
+$scope.hidePopup = function() {
+$scope.popup_newProject = true;
+}
+$scope.popup_newProject = true;
 }]);
 
 
